@@ -1,0 +1,32 @@
+@orders = http://localhost:5102
+
+### 1. Успешный заказ -> 201
+POST {{orders}}/api/orders
+Content-Type: application/json
+
+{ "productId": 1, "quantity": 2 }
+
+### 2. Несуществующий товар -> 400
+POST {{orders}}/api/orders
+Content-Type: application/json
+
+{ "productId": 99, "quantity": 1 }
+
+### 3. Нет на складе -> 409
+POST {{orders}}/api/orders
+Content-Type: application/json
+
+{ "productId": 2, "quantity": 1 }
+
+### 4. Неверное количество -> 400
+POST {{orders}}/api/orders
+Content-Type: application/json
+
+{ "productId": 1, "quantity": 0 }
+### 5. Все заказы -> 200
+GET {{Orders_HostAddress}}/api/orders
+Accept: application/json
+
+### 6. Заказ по id -> 200 (подставь id из ответа на запрос 1 или возьми ссылку из заголовка Location)
+GET {{Orders_HostAddress}}/api/orders/PUT-ORDER-ID-HERE
+Accept: application/json

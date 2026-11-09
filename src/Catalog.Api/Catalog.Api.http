@@ -1,0 +1,13 @@
+@Catalog_HostAddress = http://localhost:5101
+
+### Все товары
+GET {{Catalog_HostAddress}}/api/products
+Accept: application/json
+
+### Товар по id -> 200
+GET {{Catalog_HostAddress}}/api/products/1
+Accept: application/json
+
+### Несуществующий товар -> 404
+GET {{Catalog_HostAddress}}/api/products/99
+Accept: application/json
