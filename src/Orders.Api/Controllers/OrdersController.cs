@@ -28,7 +28,7 @@ namespace Orders.Api.Controllers
             if(createOrderDto.Quantity <= 0) return BadRequest("Quantity must be positive");
 
             var product = await catalogService.GetProductAsync(createOrderDto.ProductId, cancellationToken);
-            if(product == null) return NotFound($"Product with id {createOrderDto.ProductId} not found");
+            if(product == null) return BadRequest($"Product with id {createOrderDto.ProductId} not found");
 
             if(product.Stock < createOrderDto.Quantity) return Conflict("Stock less than quantity");
 

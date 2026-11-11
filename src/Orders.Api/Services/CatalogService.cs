@@ -8,14 +8,14 @@ public class CatalogService(HttpClient http) : ICatalogService
 {
     public async Task<CatalogProductDto?> GetProductAsync(int id, CancellationToken ct = default)
     {
-        var catalogProduct = await http.GetAsync($"api/products/{id}");
-        switch(catalogProduct.StatusCode)
+        var httpResponse = await http.GetAsync($"api/products/{id}", ct);
+        switch(httpResponse.StatusCode)
         {
             case HttpStatusCode.NotFound:
                 return null;
 
             case HttpStatusCode.OK:
-                var json = await catalogProduct.Content.ReadFromJsonAsync<CatalogProductDto>(ct);
+                var json = await httpResponse.Content.ReadFromJsonAsync<CatalogProductDto>(ct);
                 return json;
 
             default:
